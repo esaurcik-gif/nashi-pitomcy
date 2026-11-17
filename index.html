@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#73856a">
+  <meta name="description" content="Офлайн-картотека питомцев приюта">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <title>Наши питомцы</title>
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <div class="eyebrow">КАРТОТЕКА ПРИЮТА</div>
+      <h1>Наши питомцы</h1>
+      <p class="muted">Забота начинается с внимания</p>
+    </div>
+    <button id="addBtn" class="primary">＋ Добавить питомца</button>
+  </header>
+
+  <main class="container">
+    <section class="summary">
+      <div><strong id="totalCount">0</strong><span>Всего питомцев</span></div>
+      <div><strong id="treatmentCount">0</strong><span>На лечении</span></div>
+      <div><strong id="homeCount">0</strong><span>Ищут дом</span></div>
+    </section>
+
+    <section class="toolbar" aria-label="Поиск и фильтры">
+      <input id="searchInput" type="search" placeholder="Поиск по кличке или месту…" aria-label="Поиск">
+      <select id="typeFilter" aria-label="Вид животного">
+        <option value="">Все животные</option>
+        <option value="Кошка">Кошки</option>
+        <option value="Собака">Собаки</option>
+        <option value="Другое">Другие</option>
+      </select>
+      <select id="statusFilter" aria-label="Статус">
+        <option value="">Все статусы</option>
+        <option value="Ищет дом">Ищет дом</option>
+        <option value="На лечении">На лечении</option>
+        <option value="Нашёл дом">Нашёл дом</option>
+      </select>
+      <select id="sortFilter" aria-label="Сортировка">
+        <option value="new">Сначала новые</option>
+        <option value="name">По кличке</option>
+        <option value="old">Сначала старые</option>
+      </select>
+    </section>
+
+    <div class="section-heading">
+      <h2>Карточки питомцев</h2>
+      <span class="muted" id="shownCount"></span>
+    </div>
+    <section id="petGrid" class="pet-grid"></section>
+
+    <section class="backup-panel">
+      <div>
+        <h2>Резервная копия</h2>
+        <p class="muted">Сохраняйте базу в файл и периодически переносите его в безопасное место.</p>
+      </div>
+      <div class="backup-actions">
+        <button id="exportBtn" class="secondary">Скачать резервную копию</button>
+        <label class="file-button secondary">Восстановить из файла
+          <input id="importInput" type="file" accept="application/json,.json" hidden>
+        </label>
+      </div>
+    </section>
+    <p class="footnote">Данные хранятся на этом устройстве. Не очищайте данные браузера, не сохранив резервную копию.</p>
+  </main>
+
+  <dialog id="petDialog">
+    <form id="petForm" class="dialog-content">
+      <div class="dialog-header">
+        <div>
+          <div class="eyebrow">КАРТОЧКА ЖИВОТНОГО</div>
+          <h2 id="dialogTitle">Новый питомец</h2>
+        </div>
+        <button type="button" id="closeDialog" class="icon-button" aria-label="Закрыть">✕</button>
+      </div>
+
+      <input id="petId" type="hidden">
+      <div class="field">
+        <label for="petName">Кличка *</label>
+        <input id="petName" required maxlength="80" placeholder="Например, Барсик">
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label for="petType">Вид животного</label>
+          <select id="petType">
+            <option>Кошка</option><option>Собака</option><option>Другое</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="petStatus">Статус</label>
+          <select id="petStatus">
+            <option>Ищет дом</option><option>На лечении</option><option>Нашёл дом</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="petLocation">Место обитания</label>
+        <input id="petLocation" maxlength="120" placeholder="Вольер №3, комната №2">
+      </div>
+      <div class="field">
+        <label for="petTreatment">Лечение</label>
+        <textarea id="petTreatment" rows="3" placeholder="Диагноз, препараты, назначения, даты…"></textarea>
+      </div>
+      <div class="field">
+        <label for="petFood">Питание</label>
+        <textarea id="petFood" rows="3" placeholder="Корм, порция, график, ограничения…"></textarea>
+      </div>
+      <div class="field">
+        <label for="petNotes">Дополнительные заметки</label>
+        <textarea id="petNotes" rows="3" placeholder="Характер, привычки, особенности ухода…"></textarea>
+      </div>
+      <div class="field">
+        <label for="petPhotos">Фотографии (можно выбрать несколько)</label>
+        <input id="petPhotos" type="file" accept="image/*" multiple>
+        <small class="muted">Новые фотографии добавятся к уже сохранённым.</small>
+        <div id="photoPreview" class="photo-preview"></div>
+      </div>
+      <div class="dialog-actions">
+        <button type="button" id="cancelBtn" class="secondary">Отмена</button>
+        <button type="submit" class="primary">Сохранить карточку</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

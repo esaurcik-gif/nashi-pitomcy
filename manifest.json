@@ -1,0 +1,17 @@
+{
+  "id": "./",
+  "name": "Наши питомцы — картотека приюта",
+  "short_name": "Наши питомцы",
+  "description": "Офлайн-картотека животных приюта",
+  "lang": "ru",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f6f4ee",
+  "theme_color": "#73856a",
+  "icons": [
+    {"src":"./icons/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"./icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any"}
+  ]
+}
